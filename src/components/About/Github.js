@@ -10,8 +10,8 @@ function Github() {
         blockMargin={4}
         fontSize={14}
         theme={{
-          light: ["#e7edf5", "#9be3c9", "#4fc49b", "#168765", "#0b5d4e"],
-          dark: ["#1d2a33", "#1d5a61", "#278d80", "#55c7a4", "#baf7d6"],
+          light: ["#e2e8f0", "#bfdbfe", "#60a5fa", "#2563eb", "#1e40af"],
+          dark: ["#1e293b", "#1d4ed8", "#2563eb", "#3b82f6", "#93c5fd"],
         }}
       />
     </div>

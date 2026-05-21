@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { FiDownload, FiGithub, FiMenu, FiMoon, FiSun, FiX } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { profile } from "../data/portfolio";
 
 const navItems = [
-  { label: "About", to: "/#about" },
-  { label: "Skills", to: "/#skills" },
-  { label: "Projects", to: "/#projects" },
-  { label: "Experience", to: "/#experience" },
-  { label: "Credentials", to: "/#achievements" },
-  { label: "Contact", to: "/#contact" },
+  { id: "about", label: "About", to: "/#about" },
+  { id: "skills", label: "Skills", to: "/#skills" },
+  { id: "projects", label: "Projects", to: "/#projects" },
+  { id: "experience", label: "Experience", to: "/#experience" },
+  { id: "achievements", label: "Credentials", to: "/#achievements" },
+  { id: "contact", label: "Contact", to: "/#contact" },
 ];
 
 function NavBar({ theme, onThemeToggle }) {
   const [expanded, setExpanded] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
+  const location = useLocation();
 
   useEffect(() => {
     const scrollHandler = () => setScrolled(window.scrollY >= 16);
@@ -24,6 +26,41 @@ function NavBar({ theme, onThemeToggle }) {
 
     return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
+
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      return undefined;
+    }
+
+    const hashSection = location.hash.replace("#", "");
+
+    if (hashSection) {
+      setActiveSection(hashSection);
+    }
+
+    const sections = navItems
+      .map((item) => document.getElementById(item.id))
+      .filter(Boolean);
+
+    if (!sections.length || typeof IntersectionObserver !== "function") {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-28% 0px -58%", threshold: 0.08 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [location.hash, location.pathname]);
 
   return (
     <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
@@ -45,11 +82,16 @@ function NavBar({ theme, onThemeToggle }) {
         <div className={`nav-panel ${expanded ? "is-open" : ""}`} id="portfolio-navigation">
           <div className="nav-links">
             {navItems.map((item) => (
-              <Link key={item.label} to={item.to} onClick={() => setExpanded(false)}>
+              <Link
+                className={location.pathname === "/" && activeSection === item.id ? "is-active" : ""}
+                key={item.label}
+                to={item.to}
+                onClick={() => setExpanded(false)}
+              >
                 {item.label}
               </Link>
             ))}
-            <Link to="/resume" onClick={() => setExpanded(false)}>
+            <Link className={location.pathname === "/resume" ? "is-active" : ""} to="/resume" onClick={() => setExpanded(false)}>
               Resume
             </Link>
           </div>
