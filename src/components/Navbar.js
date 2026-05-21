@@ -1,123 +1,79 @@
-import React, { useState } from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Container from "react-bootstrap/Container";
-
-import Button from "react-bootstrap/Button";
+import React, { useEffect, useState } from "react";
+import { FiDownload, FiGithub, FiMenu, FiMoon, FiSun, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { CgGitFork } from "react-icons/cg";
+import { profile } from "../data/portfolio";
 
-import {
-  AiFillStar,
-  AiOutlineHome,
-  AiOutlineFundProjectionScreen,
-  AiOutlineUser,
-} from "react-icons/ai";
+const navItems = [
+  { label: "About", to: "/#about" },
+  { label: "Skills", to: "/#skills" },
+  { label: "Projects", to: "/#projects" },
+  { label: "Experience", to: "/#experience" },
+  { label: "Credentials", to: "/#achievements" },
+  { label: "Contact", to: "/#contact" },
+];
 
-import { CgFileDocument } from "react-icons/cg";
+function NavBar({ theme, onThemeToggle }) {
+  const [expanded, setExpanded] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-function NavBar() {
-  const [expand, updateExpanded] = useState(false);
-  const [navColour, updateNavbar] = useState(false);
+  useEffect(() => {
+    const scrollHandler = () => setScrolled(window.scrollY >= 16);
 
-  function scrollHandler() {
-    if (window.scrollY >= 20) {
-      updateNavbar(true);
-    } else {
-      updateNavbar(false);
-    }
-  }
+    scrollHandler();
+    window.addEventListener("scroll", scrollHandler, { passive: true });
 
-  window.addEventListener("scroll", scrollHandler);
+    return () => window.removeEventListener("scroll", scrollHandler);
+  }, []);
 
   return (
-    <Navbar
-      expanded={expand}
-      fixed="top"
-      expand="md"
-      className={navColour ? "sticky" : "navbar"}
-    >
-      <Container>
-        <Navbar.Brand href="/" className="d-flex">
-          <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
-  <span className="brand-logo">
-    MR<span className="dot">.</span>
-  </span>
-</Navbar.Brand>
-
-        </Navbar.Brand>
-        <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          onClick={() => {
-            updateExpanded(expand ? false : "expanded");
-          }}
+    <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
+      <nav className="site-shell nav-shell" aria-label="Primary navigation">
+        <Link className="brand" to="/" onClick={() => setExpanded(false)}>
+          <span>{profile.initials}</span>
+          {profile.name}
+        </Link>
+        <button
+          className="icon-button menu-toggle"
+          type="button"
+          aria-label={expanded ? "Close navigation" : "Open navigation"}
+          aria-expanded={expanded}
+          aria-controls="portfolio-navigation"
+          onClick={() => setExpanded((currentState) => !currentState)}
         >
-          <span></span>
-          <span></span>
-          <span></span>
-        </Navbar.Toggle>
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ms-auto" defaultActiveKey="#home">
-            <Nav.Item>
-              <Nav.Link as={Link} to="/" onClick={() => updateExpanded(false)}>
-                <AiOutlineHome style={{ marginBottom: "2px" }} /> Home
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/about"
-                onClick={() => updateExpanded(false)}
-              >
-                <AiOutlineUser style={{ marginBottom: "2px" }} /> About
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/project"
-                onClick={() => updateExpanded(false)}
-              >
-                <AiOutlineFundProjectionScreen
-                  style={{ marginBottom: "2px" }}
-                />{" "}
-                Projects
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/resume"
-                onClick={() => updateExpanded(false)}
-              >
-                <CgFileDocument style={{ marginBottom: "2px" }} /> Resume
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link as={Link} to="/blog">
-                Blog
-              </Nav.Link>
-            </Nav.Item>
-
-
-            <Nav.Item className="fork-btn">
-              <Button
-                href="https://github.com/23bsm038-Mahi"
-                target="_blank"
-                className="fork-btn-inner"
-              >
-                <CgGitFork style={{ fontSize: "1.2em" }} />{" "}
-                <AiFillStar style={{ fontSize: "1.1em" }} />
-              </Button>
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          {expanded ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
+        </button>
+        <div className={`nav-panel ${expanded ? "is-open" : ""}`} id="portfolio-navigation">
+          <div className="nav-links">
+            {navItems.map((item) => (
+              <Link key={item.label} to={item.to} onClick={() => setExpanded(false)}>
+                {item.label}
+              </Link>
+            ))}
+            <Link to="/resume" onClick={() => setExpanded(false)}>
+              Resume
+            </Link>
+          </div>
+          <div className="nav-actions">
+            <button
+              className="icon-button"
+              type="button"
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              onClick={onThemeToggle}
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            >
+              {theme === "dark" ? <FiSun aria-hidden="true" /> : <FiMoon aria-hidden="true" />}
+            </button>
+            <a className="icon-button" href={profile.socials[0].href} target="_blank" rel="noreferrer" aria-label="Open GitHub profile">
+              <FiGithub aria-hidden="true" />
+            </a>
+            <a className="nav-resume" href={profile.resume} download>
+              <FiDownload aria-hidden="true" />
+              CV
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
   );
 }
 
