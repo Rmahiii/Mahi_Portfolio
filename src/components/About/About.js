@@ -5,7 +5,6 @@ import {
   EducationSection,
   GithubSection,
   PageIntro,
-  PrinciplesSection,
   SkillsSection,
 } from "../Portfolio/PortfolioSections";
 
@@ -15,10 +14,9 @@ function About() {
       <PageIntro
         eyebrow="Profile"
         title="About Mahi Raj."
-        copy="A focused view of the engineering practice, skill groups, education, and public proof behind the portfolio."
+        copy="A quick view of my background, skills, certificates, and GitHub activity."
       />
       <AboutSection />
-      <PrinciplesSection />
       <SkillsSection />
       <EducationSection />
       <AchievementsSection />

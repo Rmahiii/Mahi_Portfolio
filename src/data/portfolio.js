@@ -18,7 +18,7 @@ export const profile = {
   location: "India",
   school: "IIITDM Jabalpur",
   summary:
-    "I design and build full-stack web products that balance interface quality, maintainable systems, and delivery details that hold up beyond the first release.",
+    "I build web applications with React, Node.js, and modern frontend tools. This portfolio shows the projects I coded, the stack I use, and my open source work.",
   resume,
   socials: [
     {
@@ -37,26 +37,26 @@ export const profile = {
 };
 
 export const focusMetrics = [
-  { value: "UI -> API", label: "end-to-end ownership" },
-  { value: "4+", label: "shipped case studies" },
-  { value: "OSS", label: "public contribution" },
+  { value: "4+", label: "projects" },
+  { value: "MERN", label: "main stack" },
+  { value: "OSS", label: "open source" },
 ];
 
 export const skillGroups = [
   {
-    title: "Product Interfaces",
+    title: "Frontend",
     items: ["React", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS", "Bootstrap", "HTML", "CSS"],
   },
   {
-    title: "Application Backend",
+    title: "Backend",
     items: ["Node.js", "Express.js", "REST APIs", "PHP", "Firebase", "Authentication"],
   },
   {
-    title: "Data & Delivery",
+    title: "Database & Cloud",
     items: ["MongoDB", "PostgreSQL", "MySQL", "AWS", "Docker"],
   },
   {
-    title: "Engineering Toolkit",
+    title: "Languages & Tools",
     items: ["C++", "Java", "Python", "Git", "GitHub", "Postman", "Problem Solving"],
   },
 ];
@@ -66,76 +66,50 @@ export const projects = [
     title: "VS Code Clone",
     image: vscodeImage,
     description:
-      "A browser-based editor experience that keeps authoring and preview feedback close for HTML, CSS, and JavaScript workflows.",
+      "I built a browser-based code editor for HTML, CSS, and JavaScript with a live preview workflow inspired by VS Code.",
     stack: ["React", "Editor UX", "Live Preview"],
-    scope: "Developer tooling UI",
-    focus: ["Interactive editing flow", "Fast preview feedback", "Workspace-inspired visual hierarchy"],
     github: "https://github.com/23bsm038-Mahi/vs-code-clone",
   },
   {
     title: "E-Commerce Website",
     image: ecommerceImage,
     description:
-      "A commerce application spanning product discovery, cart behavior, authentication, and order-oriented full-stack structure.",
+      "I built a full-stack e-commerce app with product browsing, cart behavior, authentication, and order flow features.",
     stack: ["React", "Node.js", "Full Stack"],
-    scope: "Transactional product flow",
-    focus: ["Catalog and cart state", "Authentication-aware UX", "Backend-connected application structure"],
     github: "https://github.com/23bsm038-Mahi/E-commerce-",
   },
   {
     title: "Artwork Portfolio",
     image: artworkImage,
     description:
-      "A visual showcase designed to make artwork collections easier to scan, browse, and present across screen sizes.",
+      "I built a responsive artwork showcase with a clean layout for browsing and presenting digital collections.",
     stack: ["Responsive UI", "Design Systems", "Frontend"],
-    scope: "Content presentation system",
-    focus: ["Responsive composition", "Collection-first navigation", "Polished media presentation"],
     github: "https://github.com/23bsm038-Mahi/Artworks-App",
   },
   {
     title: "Yoom",
     image: yoomImage,
     description:
-      "A digital artwork platform shaped around content structure, reusable interface composition, and user-centered navigation.",
+      "I built a digital artwork platform with reusable React UI, structured content, and responsive navigation.",
     stack: ["React", "Content UX", "Performance"],
-    scope: "Creative platform frontend",
-    focus: ["Reusable UI architecture", "Structured browsing surfaces", "Performance-aware presentation"],
     github: "https://github.com/23bsm038-Mahi/Yoom",
-  },
-];
-
-export const engineeringPrinciples = [
-  {
-    title: "Product clarity",
-    detail:
-      "Translate requirements into focused flows, readable hierarchy, and interactions that reduce user friction.",
-  },
-  {
-    title: "System ownership",
-    detail:
-      "Work across components, state, APIs, data choices, and delivery details instead of treating UI as a thin layer.",
-  },
-  {
-    title: "Maintainable delivery",
-    detail:
-      "Prefer reusable modules, predictable structure, accessibility checks, and performance-aware implementation.",
   },
 ];
 
 export const experience = [
   {
     period: "Current",
-    role: "Full Stack Product Development",
-    place: "Independent project practice",
+    role: "Full Stack Projects",
+    place: "Personal and academic work",
     details:
-      "Building end-to-end applications across interface architecture, application state, backend workflows, data choices, and deployable project structure.",
+      "Building web projects across frontend UI, backend APIs, data handling, authentication, and deployment practice.",
   },
   {
     period: "Ongoing",
     role: "Open Source Contributor",
-    place: "Public engineering work",
+    place: "GitHub and contribution programs",
     details:
-      "Contributing through public repositories, Git-based collaboration, contribution programs, review-ready changes, and reusable implementation patterns.",
+      "Contributing in public repositories and open source programs while improving Git, collaboration, and review workflows.",
   },
 ];
 
@@ -144,7 +118,7 @@ export const education = [
     degree: "B.Tech Student",
     school: "Indian Institute of Information Technology, Design and Manufacturing Jabalpur",
     details:
-      "Academic foundation in software engineering, problem solving, systems thinking, and project-led full-stack development.",
+      "Studying software engineering fundamentals while building full-stack projects and improving problem-solving skills.",
   },
 ];
 
@@ -152,17 +126,17 @@ export const achievements = [
   {
     title: "Product-focused portfolio",
     detail:
-      "Built inspectable case studies across developer tooling, commerce workflows, and creative content platforms.",
+      "Built projects across developer tools, e-commerce, and creative web platforms.",
   },
   {
     title: "Engineering fundamentals",
     detail:
-      "Uses C++, Java, and Python foundations to sharpen algorithms, code clarity, and implementation tradeoffs.",
+      "Practicing problem solving and programming with C++, Java, and Python.",
   },
   {
     title: "Open source momentum",
     detail:
-      "Builds public proof through GitHub work, contributor selections, certifications, and steady portfolio iteration.",
+      "Selected for contributor programs and keeping certificates and public work visible.",
   },
 ];
 
@@ -229,7 +203,7 @@ export const credentials = [
 ];
 
 export const openSource = [
-  "Public GitHub repositories connect project decisions to inspectable source code and contribution history.",
-  "Contribution programs and certificates show active participation beyond isolated personal builds.",
-  "Git-first habits support review-ready changes, issue-driven iteration, and reusable engineering patterns.",
+  "My GitHub profile contains the source code for the projects shown here.",
+  "I am active in open source programs and keep contribution credentials visible.",
+  "I use Git and GitHub while building, iterating, and collaborating on code.",
 ];

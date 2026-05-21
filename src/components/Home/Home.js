@@ -8,7 +8,6 @@ import {
   GithubSection,
   HeroSection,
   OpenSourceSection,
-  PrinciplesSection,
   ProjectsSection,
   SkillsSection,
 } from "../Portfolio/PortfolioSections";
@@ -20,7 +19,6 @@ function Home() {
       <AboutSection />
       <SkillsSection />
       <ProjectsSection />
-      <PrinciplesSection />
       <ExperienceSection />
       <EducationSection />
       <AchievementsSection />

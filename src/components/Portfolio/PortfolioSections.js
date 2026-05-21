@@ -10,11 +10,9 @@ import {
   FiGithub,
   FiLayers,
   FiMessageCircle,
-  FiShield,
 } from "react-icons/fi";
-import heroImage from "../../Assets/Portfolio/girl-coder-hero.jpg";
-import aboutImage from "../../Assets/Portfolio/girl-coder-about.jpg";
-import { achievements, credentials, education, engineeringPrinciples, experience, focusMetrics, openSource, profile, projects, skillGroups } from "../../data/portfolio";
+import profileImage from "../../Assets/Profile/mahi-photo.png";
+import { achievements, credentials, education, experience, focusMetrics, openSource, profile, projects, skillGroups } from "../../data/portfolio";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
@@ -25,7 +23,7 @@ export function HeroSection() {
     <section className="hero-section" id="home">
       <div className="site-shell hero-grid">
         <Reveal className="hero-copy">
-          <p className="eyebrow">Full-stack product engineering</p>
+          <p className="eyebrow">Full Stack Developer</p>
           <h1>
             {profile.name}
             <span>{profile.title}</span>
@@ -33,7 +31,7 @@ export function HeroSection() {
           <p className="hero-summary">{profile.summary}</p>
           <div className="hero-actions">
             <a className="button button-primary" href="#projects">
-              Review selected work
+              View projects
               <FiArrowUpRight aria-hidden="true" />
             </a>
             <a className="button button-secondary" href={profile.resume} download>
@@ -51,12 +49,12 @@ export function HeroSection() {
           </div>
         </Reveal>
         <Reveal className="hero-visual" delay={120}>
-          <div className="visual-frame">
-            <img src={heroImage} alt="Mahi Raj building software at a workstation" />
+          <div className="visual-frame profile-frame">
+            <img src={profileImage} alt="Mahi Raj" />
           </div>
           <div className="availability-note">
             <span aria-hidden="true" />
-            Building maintainable web products from {profile.location}
+            Building projects from {profile.location}
           </div>
         </Reveal>
       </div>
@@ -68,21 +66,21 @@ export function AboutSection() {
   return (
     <section className="content-section" id="about">
       <div className="site-shell about-grid">
-        <Reveal className="about-media">
-          <img loading="lazy" src={aboutImage} alt="Mahi Raj reviewing product notes and code at a desk" />
+        <Reveal className="about-media profile-about-media">
+          <img loading="lazy" src={profileImage} alt="Mahi Raj profile" />
         </Reveal>
         <Reveal>
           <SectionHeading
             eyebrow="About"
-            title="A product-minded developer across interface and application layers."
-            copy="I shape web work from interaction design through implementation detail: responsive UI, stateful flows, backend-connected features, and code that stays understandable as projects grow."
+            title="Hi, I am Mahi."
+            copy="I am a third-year B.Tech student at IIITDM Jabalpur and I enjoy building full-stack web projects."
           />
           <div className="about-copy">
             <p>
-              My strongest work sits where visual polish meets engineering discipline. I use React and Node.js to turn ideas into usable systems, then refine spacing, behavior, structure, accessibility, and performance instead of stopping at a functional first pass.
+              I mostly work with React, Node.js, Express, MongoDB, and modern frontend tools. I like turning ideas into working applications and improving them as I learn.
             </p>
             <p>
-              I am building that practice through shipped projects, public code, open source programs, and a software engineering foundation at {profile.school}.
+              This portfolio is a collection of the projects I have coded, the tools I use, and the open source programs and certificates that are part of my journey.
             </p>
           </div>
         </Reveal>
@@ -98,8 +96,8 @@ export function SkillsSection() {
         <Reveal>
           <SectionHeading
             eyebrow="Skills"
-            title="Tools organized by the systems they help deliver."
-            copy="The stack is grouped around product surfaces, application logic, data, and delivery rather than a flat technology dump."
+            title="Tech stack I use."
+            copy="These are the languages, frameworks, tools, and platforms I use while building my projects."
           />
         </Reveal>
         <div className="skill-grid">
@@ -128,8 +126,8 @@ export function ProjectsSection({ compact = false }) {
         <Reveal>
           <SectionHeading
             eyebrow="Projects"
-            title={compact ? "Selected engineering work." : "Case studies across product UI and full-stack workflows."}
-            copy="Each project highlights the surface area owned, the implementation focus, and source code you can inspect."
+            title={compact ? "Projects I built." : "Projects I have worked on."}
+            copy="Here are some projects I coded to practice full-stack development, frontend UI, and real app workflows."
           />
         </Reveal>
         <div className="project-grid">
@@ -146,15 +144,6 @@ export function ProjectsSection({ compact = false }) {
                   </a>
                 </div>
                 <p>{project.description}</p>
-                <div className="project-scope">
-                  <span>Scope</span>
-                  <strong>{project.scope}</strong>
-                </div>
-                <ul className="project-focus">
-                  {project.focus.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
                 <div className="chip-list">
                   {project.stack.map((item) => (
                     <span className="chip chip-quiet" key={item}>
@@ -200,36 +189,11 @@ export function ExperienceSection() {
   return (
     <TimelineSection
       id="experience"
-      eyebrow="Engineering Practice"
-      title="Ownership signals from shipped work and public contribution."
+      eyebrow="Experience"
+      title="What I am currently building and contributing to."
       icon={FiBriefcase}
       entries={experience}
     />
-  );
-}
-
-export function PrinciplesSection() {
-  return (
-    <section className="content-section" id="principles">
-      <div className="site-shell">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Working Style"
-            title="How I approach production-minded frontend and full-stack work."
-            copy="The portfolio is designed to show execution quality: clear product thinking, implementation ownership, and maintainable delivery."
-          />
-        </Reveal>
-        <div className="principle-grid">
-          {engineeringPrinciples.map((principle, index) => (
-            <Reveal className="surface principle-card" delay={index * 65} key={principle.title}>
-              <FiShield aria-hidden="true" />
-              <h3>{principle.title}</h3>
-              <p>{principle.detail}</p>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -238,7 +202,7 @@ export function EducationSection() {
     <TimelineSection
       id="education"
       eyebrow="Education"
-      title="Technical foundation backing the work."
+      title="Education."
       icon={FiBookOpen}
       entries={education}
     />
@@ -252,8 +216,8 @@ export function AchievementsSection() {
         <Reveal>
           <SectionHeading
             eyebrow="Achievements & Certifications"
-            title="Inspectable credentials and contribution milestones."
-            copy="Program selections, certificates, and contributor proof add context to the work shown above."
+            title="Certificates and achievements."
+            copy="These are the programs, certificates, and contribution milestones I want to keep visible."
           />
         </Reveal>
         <div className="credential-grid">
@@ -315,8 +279,8 @@ export function OpenSourceSection() {
         <Reveal>
           <SectionHeading
             eyebrow="Open Source"
-            title="Public engineering work that stays inspectable."
-            copy="Repositories, contribution programs, and activity history make growth and implementation habits visible."
+            title="Open source and GitHub."
+            copy="I share my code publicly and keep learning through repositories, GitHub activity, and contribution programs."
           />
           <a className="text-link" href={profile.socials[0].href} target="_blank" rel="noreferrer">
             <FiGithub aria-hidden="true" />
@@ -343,8 +307,8 @@ export function GithubSection() {
         <Reveal className="surface github-panel">
           <SectionHeading
             eyebrow="GitHub Stats"
-            title="Recent public coding activity."
-            copy="A live contribution calendar keeps repository work close to the portfolio narrative."
+            title="GitHub activity."
+            copy="My recent public coding activity."
           />
           <Suspense fallback={<div className="loading-panel" role="status">Loading GitHub activity...</div>}>
             <Github />
@@ -362,9 +326,9 @@ export function ContactSection() {
         <Reveal className="contact-panel">
           <div>
             <p className="eyebrow">Contact</p>
-            <h2>Available for product-focused engineering opportunities.</h2>
+            <h2>Let us connect.</h2>
             <p>
-              Reach out for full-stack roles, frontend-heavy product work, collaboration, or open source conversations. The resume and public profiles are ready for review.
+              You can reach me for full-stack opportunities, collaboration, project discussions, or open source work.
             </p>
           </div>
           <div className="contact-actions">

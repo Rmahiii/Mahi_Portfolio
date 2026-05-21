@@ -1,16 +1,15 @@
 import React from "react";
-import { ContactSection, PageIntro, PrinciplesSection, ProjectsSection } from "../Portfolio/PortfolioSections";
+import { ContactSection, PageIntro, ProjectsSection } from "../Portfolio/PortfolioSections";
 
 function Projects() {
   return (
     <>
       <PageIntro
         eyebrow="Work"
-        title="Selected engineering work."
-        copy="Case studies framed with product context, implementation focus, and direct paths to the source."
+        title="Projects I built."
+        copy="A closer look at the projects I coded and the technologies I used."
       />
       <ProjectsSection compact />
-      <PrinciplesSection />
       <ContactSection />
     </>
   );
