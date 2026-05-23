@@ -136,6 +136,7 @@ export const projects = [
     stack: ["React", "CSS", "Content UX", "Performance"],
     stats: ["Reusable UI", "Responsive nav", "Content UX"],
     github: "https://github.com/23bsm038-Mahi/Yoom",
+    demo: "https://yoom-ashy-mu.vercel.app/",
   },
 ];
 
