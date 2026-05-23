@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FiDownload, FiGithub, FiMenu, FiMoon, FiSun, FiX } from "react-icons/fi";
+import { FiDownload, FiGithub, FiMenu, FiX } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 import { profile } from "../data/portfolio";
 
@@ -12,7 +12,7 @@ const navItems = [
   { id: "contact", label: "Contact", to: "/#contact" },
 ];
 
-function NavBar({ theme, onThemeToggle }) {
+function NavBar() {
   const [expanded, setExpanded] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
@@ -96,15 +96,6 @@ function NavBar({ theme, onThemeToggle }) {
             </Link>
           </div>
           <div className="nav-actions">
-            <button
-              className="icon-button"
-              type="button"
-              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-              onClick={onThemeToggle}
-              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-            >
-              {theme === "dark" ? <FiSun aria-hidden="true" /> : <FiMoon aria-hidden="true" />}
-            </button>
             <a className="icon-button" href={profile.socials[0].href} target="_blank" rel="noreferrer" aria-label="Open GitHub profile">
               <FiGithub aria-hidden="true" />
             </a>

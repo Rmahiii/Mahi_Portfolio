@@ -26,12 +26,14 @@ export const projectImageFallbacks = {
 export const profile = {
   name: "Mahi Raj",
   initials: "MR",
-  title: "Full Stack Software Developer",
+  title: "Software Engineer",
   location: "India",
   school: "IIITDM Jabalpur",
-  email: process.env.REACT_APP_CONTACT_EMAIL || "rmahi1407@gmail.com",
+  email: process.env.REACT_APP_CONTACT_EMAIL || "rmahi0773@gmail.com",
   summary:
-    "I build web applications with React, Node.js, and modern frontend tools. This portfolio shows the projects I coded, the stack I use, and my open source work.",
+    "Software Engineer focused on Full Stack Development, scalable systems, and AI-powered applications.",
+  intro:
+    "I build React and Node.js applications with practical product flows, clean APIs, and deployment-ready interfaces. Most of my work is public, so recruiters can inspect the code, tradeoffs, and iteration history.",
   resume,
   socials: [
     {
@@ -50,9 +52,10 @@ export const profile = {
 };
 
 export const focusMetrics = [
-  { value: "5+", label: "projects" },
-  { value: "MERN", label: "main stack" },
-  { value: "OSS", label: "open source" },
+  { value: "5+", label: "shipped projects" },
+  { value: "MERN", label: "primary stack" },
+  { value: "Vercel", label: "deployment" },
+  { value: "OSS", label: "public work" },
 ];
 
 export const skillGroups = [
@@ -82,9 +85,9 @@ export const projects = [
     featured: true,
     category: "AI SaaS Tool",
     description:
-      "AI-powered resume analyzer with ATS scoring, resume insights and feedback.",
-    stack: ["React", "AI Workflow", "Resume Analysis"],
-    stats: ["Live on Vercel", "AI feedback", "Resume scoring"],
+      "Resume analysis workflow that scores uploaded resumes and returns structured feedback for ATS readiness.",
+    stack: ["React", "JavaScript", "AI Workflow", "Vercel"],
+    stats: ["ATS scoring", "Resume insights", "Live demo"],
     github: "https://github.com/23bsm038-Mahi/AI-Resume-Analyzer",
     demo: "https://ai-resume-analyzer-web-six.vercel.app/",
   },
@@ -95,9 +98,9 @@ export const projects = [
     featured: true,
     category: "Developer Tooling",
     description:
-      "I built a browser-based code editor for HTML, CSS, and JavaScript with a live preview workflow inspired by VS Code.",
-    stack: ["React", "Editor UX", "Live Preview"],
-    stats: ["Code editor UI", "Live preview", "Developer workflow"],
+      "Browser-based code editor for HTML, CSS, and JavaScript with a live preview workflow.",
+    stack: ["React", "JavaScript", "Editor UX", "Live Preview"],
+    stats: ["Live preview", "Multi-pane UI", "Frontend tooling"],
     github: "https://github.com/23bsm038-Mahi/vs-code-clone",
   },
   {
@@ -107,9 +110,9 @@ export const projects = [
     featured: true,
     category: "Full Stack Product",
     description:
-      "I built a full-stack e-commerce app with product browsing, cart behavior, authentication, and order flow features.",
-    stack: ["React", "Node.js", "Full Stack"],
-    stats: ["Cart flow", "Authentication", "Order journey"],
+      "Full-stack commerce flow with product browsing, cart behavior, authentication, and order journey screens.",
+    stack: ["React", "Node.js", "Express", "MongoDB"],
+    stats: ["Cart flow", "Auth flow", "Order journey"],
     github: "https://github.com/23bsm038-Mahi/E-commerce-",
   },
   {
@@ -118,9 +121,9 @@ export const projects = [
     imageCategory: "artwork",
     category: "Portfolio UI",
     description:
-      "I built a responsive artwork showcase with a clean layout for browsing and presenting digital collections.",
-    stack: ["Responsive UI", "Design Systems", "Frontend"],
-    stats: ["Gallery UX", "Responsive", "Visual content"],
+      "Responsive gallery experience for browsing and presenting digital artwork collections.",
+    stack: ["React", "CSS", "Responsive UI"],
+    stats: ["Gallery UX", "Mobile layout", "Content model"],
     github: "https://github.com/23bsm038-Mahi/Artworks-App",
   },
   {
@@ -129,27 +132,27 @@ export const projects = [
     imageCategory: "yoom",
     category: "Creative Platform",
     description:
-      "I built a digital artwork platform with reusable React UI, structured content, and responsive navigation.",
-    stack: ["React", "Content UX", "Performance"],
-    stats: ["Reusable UI", "Content UX", "Performance"],
+      "Creative platform interface built with reusable React UI and structured content sections.",
+    stack: ["React", "CSS", "Content UX", "Performance"],
+    stats: ["Reusable UI", "Responsive nav", "Content UX"],
     github: "https://github.com/23bsm038-Mahi/Yoom",
   },
 ];
 
 export const experience = [
   {
-    period: "Current",
-    role: "Full Stack Projects",
-    place: "Personal and academic work",
+    period: "2025 - Present",
+    role: "Full Stack Project Builder",
+    place: "Personal, academic, and deployed work",
     details:
-      "Building web projects across frontend UI, backend APIs, data handling, authentication, and deployment practice.",
+      "Building React and Node.js projects with authentication flows, API integration, state management, and deployment practice on platforms such as Vercel.",
   },
   {
-    period: "Ongoing",
+    period: "2026",
     role: "Open Source Contributor",
     place: "GitHub and contribution programs",
     details:
-      "Contributing in public repositories and open source programs while improving Git, collaboration, and review workflows.",
+      "Participating in open source programs, keeping contribution credentials visible, and improving Git collaboration habits through public repositories.",
   },
 ];
 
@@ -164,19 +167,19 @@ export const education = [
 
 export const achievements = [
   {
-    title: "Product-focused portfolio",
+    title: "Projects",
     detail:
-      "Built projects across developer tools, e-commerce, and creative web platforms.",
+      "Built projects in AI tools, e-commerce, developer tooling, and frontend UI.",
   },
   {
-    title: "Engineering fundamentals",
+    title: "Programming",
     detail:
-      "Practicing problem solving and programming with C++, Java, and Python.",
+      "Practicing problem solving with C++, Java, and Python.",
   },
   {
-    title: "Open source momentum",
+    title: "Open Source",
     detail:
-      "Selected for contributor programs and keeping certificates and public work visible.",
+      "Participating in contribution programs and sharing public work on GitHub.",
   },
 ];
 
@@ -243,9 +246,9 @@ export const credentials = [
 ];
 
 export const openSource = [
-  "Most of my development work, experiments, and learning projects are available publicly on GitHub.",
-  "I am active in open source programs and keep contribution credentials visible.",
-  "I regularly use Git for version control and collaboration while building projects.",
+  "I keep most of my project code public on GitHub.",
+  "I use GitHub to track commits, issues, and project progress.",
+  "I participate in open source programs and keep related credentials visible.",
 ];
 
 export const codingProfiles = [

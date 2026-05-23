@@ -3,10 +3,12 @@ import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import {
   FiArrowUpRight,
+  FiCommand,
   FiDownload,
   FiFileText,
   FiGithub,
   FiLayers,
+  FiLinkedin,
   FiMessageCircle,
   FiSend,
   FiUserCheck,
@@ -19,28 +21,17 @@ import SectionHeading from "./SectionHeading";
 const Github = React.lazy(() => import("../About/Github"));
 
 const projectVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 12 },
   show: (index) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.52, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.28, delay: index * 0.04, ease: "easeOut" },
   }),
 };
 
 function ProjectCard({ project, index }) {
-  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
   const [imageLoaded, setImageLoaded] = useState(false);
   const imageSrc = project.image || projectImageFallbacks[project.imageCategory] || projectImageFallbacks.default;
-
-  const moveHandler = (event) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-
-    setTilt({ rotateX: y * -6, rotateY: x * 6 });
-    event.currentTarget.style.setProperty("--image-x", `${x * 10}px`);
-    event.currentTarget.style.setProperty("--image-y", `${y * 10}px`);
-  };
 
   return (
     <motion.article
@@ -49,13 +40,6 @@ function ProjectCard({ project, index }) {
       initial="hidden"
       animate="show"
       variants={projectVariants}
-      onMouseMove={moveHandler}
-      onMouseLeave={(event) => {
-        setTilt({ rotateX: 0, rotateY: 0 });
-        event.currentTarget.style.setProperty("--image-x", "0px");
-        event.currentTarget.style.setProperty("--image-y", "0px");
-      }}
-      style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformStyle: "preserve-3d" }}
     >
       <div className={`project-image ${imageLoaded ? "is-loaded" : "is-loading"}`}>
         <img
@@ -71,7 +55,6 @@ function ProjectCard({ project, index }) {
             setImageLoaded(true);
           }}
         />
-        <div className="project-image-overlay" aria-hidden="true" />
         <div className="project-badge-row">
           <span>{project.category}</span>
           {project.demo && <span className="live-badge">Live</span>}
@@ -93,15 +76,6 @@ function ProjectCard({ project, index }) {
             </a>
           </div>
         </div>
-        <p>{project.description}</p>
-        <div className="project-stats">
-          {project.stats.map((item, statIndex) => (
-            <span key={item}>
-              <strong>{String(statIndex + 1).padStart(2, "0")}</strong>
-              {item}
-            </span>
-          ))}
-        </div>
         <div className="chip-list tech-chip-list">
           {project.stack.map((item) => (
             <span className="chip chip-quiet" key={item}>
@@ -114,27 +88,94 @@ function ProjectCard({ project, index }) {
   );
 }
 
+function WorkspaceCard() {
+  return (
+    <div className="workspace-card" aria-label="Engineering workspace preview">
+      <div className="workspace-topbar">
+        <span />
+        <span />
+        <span />
+        <strong>mahi-portfolio/main</strong>
+      </div>
+      <div className="workspace-body">
+        <aside>
+          <span>src</span>
+          <span>api</span>
+          <span>components</span>
+          <span>deploy</span>
+        </aside>
+        <div className="workspace-code">
+          <p><span>const</span> focus = "full-stack systems";</p>
+          <p><span>build</span>({`{ api, ui, auth, deploy }`});</p>
+          <p><span>ship</span>("working software");</p>
+        </div>
+      </div>
+      <div className="workspace-footer">
+        <span>React</span>
+        <span>Node.js</span>
+        <span>MongoDB</span>
+        <span>Vercel</span>
+      </div>
+    </div>
+  );
+}
+
+function FocusMarquee() {
+  const items = [
+    "Full Stack Engineering",
+    "React + Node.js",
+    "Clean UX",
+    "API Integration",
+    "Deployment Ready",
+    "Open Source",
+  ];
+
+  return (
+    <div className="focus-marquee" aria-label="Engineering focus areas">
+      <div>
+        {[...items, ...items].map((item, index) => (
+          <span key={`${item}-${index}`}>{item}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function HeroSection() {
   return (
     <section className="hero-section" id="home">
-      <div className="site-shell hero-grid">
+      <div className="site-shell hero-shell">
         <Reveal className="hero-copy">
-          <p className="eyebrow">Full Stack Developer</p>
-          <h1>
-            {profile.name}
-            <span>{profile.title}</span>
-          </h1>
-          <p className="hero-summary">{profile.summary}</p>
+          <p className="hello-line">Hello · नमस्ते · こんにちは · Hola · Hallo</p>
+          <a className="command-pill" href="#projects">
+            <FiCommand aria-hidden="true" />
+            Search projects, work, stack
+            <kbd>⌘K</kbd>
+          </a>
+          <div className="hero-avatar-wrap">
+            <img src={profileImage} alt="Mahi Raj" />
+          </div>
+          <p className="eyebrow">Software Engineer</p>
+          <h1>{profile.name}</h1>
+          <h2>{profile.summary}</h2>
+          <a className="hero-email" href={`mailto:${profile.email}`}>{profile.email}</a>
+          <p className="hero-summary">{profile.intro}</p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#projects">
-              View projects
-              <FiArrowUpRight aria-hidden="true" />
+            <a className="button button-primary" href={profile.socials[0].href} target="_blank" rel="noreferrer">
+              <FiGithub aria-hidden="true" />
+              GitHub
+            </a>
+            <a className="button button-secondary" href={profile.socials[1].href} target="_blank" rel="noreferrer">
+              <FiLinkedin aria-hidden="true" />
+              LinkedIn
             </a>
             <a className="button button-secondary" href={profile.resume} download>
               <FiDownload aria-hidden="true" />
               Resume
             </a>
           </div>
+        </Reveal>
+        <Reveal className="hero-proof" delay={80}>
           <div className="metric-row" aria-label="Portfolio highlights">
             {focusMetrics.map((item) => (
               <div className="metric" key={item.label}>
@@ -143,17 +184,10 @@ export function HeroSection() {
               </div>
             ))}
           </div>
-        </Reveal>
-        <Reveal className="hero-visual" delay={120}>
-          <div className="visual-frame profile-frame">
-            <img src={profileImage} alt="Mahi Raj" />
-          </div>
-          <div className="availability-note">
-            <span aria-hidden="true" />
-            Building projects from {profile.location}
-          </div>
+          <WorkspaceCard />
         </Reveal>
       </div>
+      <FocusMarquee />
     </section>
   );
 }
@@ -168,15 +202,15 @@ export function AboutSection() {
         <Reveal>
           <SectionHeading
             eyebrow="About"
-            title="Hi, I am Mahi."
-            copy="I am a third-year B.Tech student at IIITDM Jabalpur and I enjoy building full-stack web projects."
+            title="I care about clear interfaces and working systems."
+            copy="I am a B.Tech student at IIITDM Jabalpur building full-stack applications, AI-assisted tools, and public projects that can be reviewed through code."
           />
           <div className="about-copy">
             <p>
-              I mostly work with React, Node.js, Express, MongoDB, and modern frontend tools. I like turning ideas into working applications and improving them as I learn.
+              I mostly work with React, Node.js, Express, MongoDB, and modern frontend tools. I focus on project structure, user flows, API boundaries, and deployment details.
             </p>
             <p>
-              This portfolio is a collection of the projects I have coded, the tools I use, and the open source programs and certificates that are part of my journey.
+              This portfolio is intentionally simple: inspect the projects, open the repos, check the resume, and reach out if the work matches what your team needs.
             </p>
           </div>
         </Reveal>
@@ -222,8 +256,8 @@ export function ProjectsSection({ compact = false }) {
         <Reveal>
           <SectionHeading
             eyebrow="Projects"
-            title={compact ? "Projects I built." : "Projects I have worked on."}
-            copy="Here are some projects I coded to practice full-stack development, frontend UI, and real app workflows."
+            title={compact ? "Selected engineering projects." : "Selected engineering projects."}
+            copy="Each project is documented by the problem it solves, the implementation approach, and the engineering tradeoffs involved."
           />
         </Reveal>
         <div className="project-grid">
@@ -246,9 +280,6 @@ function TimelineSection({ id, eyebrow, title, entries }) {
         <div className="timeline">
           {entries.map((entry, index) => (
             <Reveal className="surface timeline-item" delay={index * 80} key={`${entry.role || entry.degree}-${entry.place || entry.school}`}>
-              <div className="timeline-marker" aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </div>
               <div>
                 {entry.period && <span>{entry.period}</span>}
                 <h3>{entry.role || entry.degree}</h3>
@@ -354,8 +385,8 @@ export function OpenSourceSection() {
         <Reveal>
           <SectionHeading
             eyebrow="Open Source"
-            title="Open source and GitHub."
-            copy="I share my code publicly and keep learning through repositories, GitHub activity, and contribution programs."
+            title="GitHub and open source."
+            copy="A simple view of how I use GitHub for projects, learning, and public work."
           />
           <a className="text-link" href={profile.socials[0].href} target="_blank" rel="noreferrer">
             <FiGithub aria-hidden="true" />
@@ -365,10 +396,7 @@ export function OpenSourceSection() {
         <div className="source-list">
           {openSource.map((item, index) => (
             <Reveal className="surface source-item" delay={index * 70} key={item}>
-              <div className="repo-card-meta">
-                <span>repo</span>
-                <strong>{String(index + 1).padStart(2, "0")}</strong>
-              </div>
+              <span className="source-dot" aria-hidden="true" />
               <p>{item}</p>
             </Reveal>
           ))}
@@ -385,9 +413,9 @@ export function GithubSection() {
         <div className="stats-grid">
           <Reveal className="surface github-panel">
             <SectionHeading
-              eyebrow="GitHub Heatmap"
+              eyebrow="GitHub"
               title="Contribution activity."
-              copy="A live contribution heatmap connected to my public GitHub profile."
+              copy="My public GitHub activity from the last year."
             />
             <Suspense fallback={<div className="loading-panel" role="status">Loading GitHub activity...</div>}>
               <Github />
@@ -396,8 +424,8 @@ export function GithubSection() {
           <Reveal className="surface github-panel github-stat-card" delay={90}>
             <SectionHeading
               eyebrow="GitHub Stats"
-              title="Repository signal."
-              copy="Live cards from GitHub Readme Stats."
+              title="GitHub stats."
+              copy="A quick snapshot of public repository activity."
             />
             <img
               loading="lazy"
