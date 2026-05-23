@@ -31,9 +31,9 @@ export const profile = {
   school: "IIITDM Jabalpur",
   email: process.env.REACT_APP_CONTACT_EMAIL || "rmahi0773@gmail.com",
   summary:
-    "Software Engineer focused on Full Stack Development, scalable systems, and AI-powered applications.",
+    "Full Stack Developer building useful web applications.",
   intro:
-    "I build React and Node.js applications with practical product flows, clean APIs, and deployment-ready interfaces. Most of my work is public, so recruiters can inspect the code, tradeoffs, and iteration history.",
+    "I work with React, Node.js, Express, and MongoDB. I like simple interfaces, clean code, and projects that are easy to use.",
   resume,
   socials: [
     {

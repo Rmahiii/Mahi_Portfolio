@@ -203,14 +203,17 @@ export function AboutSection() {
           <SectionHeading
             eyebrow="About"
             title="I care about clear interfaces and working systems."
-            copy="I am a B.Tech student at IIITDM Jabalpur building full-stack applications, AI-assisted tools, and public projects that can be reviewed through code."
+            copy="I am a B.Tech student at IIITDM Jabalpur building full-stack projects and learning by shipping practical applications."
           />
           <div className="about-copy">
             <p>
-              I mostly work with React, Node.js, Express, MongoDB, and modern frontend tools. I focus on project structure, user flows, API boundaries, and deployment details.
+              I mostly work with React, Node.js, Express, MongoDB, and modern frontend tools.
             </p>
             <p>
-              This portfolio is intentionally simple: inspect the projects, open the repos, check the resume, and reach out if the work matches what your team needs.
+              I have also been involved in open source programs including Summer of Bitcoin, C4GT, SSoC, and GSSoC, where I practiced Git workflows, issue-based development, and public collaboration.
+            </p>
+            <p>
+              This portfolio keeps my projects, resume, GitHub work, open source activity, and certificates in one place.
             </p>
           </div>
         </Reveal>
