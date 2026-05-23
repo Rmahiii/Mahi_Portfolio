@@ -7,9 +7,11 @@ import {
   ExperienceSection,
   GithubSection,
   HeroSection,
+  CodingProfilesSection,
   OpenSourceSection,
   ProjectsSection,
   SkillsSection,
+  TestimonialsSection,
 } from "../Portfolio/PortfolioSections";
 
 function Home() {
@@ -24,6 +26,8 @@ function Home() {
       <AchievementsSection />
       <OpenSourceSection />
       <GithubSection />
+      <CodingProfilesSection />
+      <TestimonialsSection />
       <ContactSection />
     </>
   );

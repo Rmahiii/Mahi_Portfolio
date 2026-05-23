@@ -1,22 +1,118 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
+import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 import {
   FiArrowUpRight,
-  FiAward,
-  FiBookOpen,
-  FiBriefcase,
-  FiCode,
   FiDownload,
   FiFileText,
   FiGithub,
   FiLayers,
   FiMessageCircle,
+  FiSend,
+  FiUserCheck,
 } from "react-icons/fi";
 import profileImage from "../../Assets/Profile/mahi-photo.png";
-import { achievements, credentials, education, experience, focusMetrics, openSource, profile, projects, skillGroups } from "../../data/portfolio";
+import { achievements, codingProfiles, credentials, education, experience, focusMetrics, openSource, profile, projectImageFallbacks, projects, skillGroups, testimonials } from "../../data/portfolio";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
 const Github = React.lazy(() => import("../About/Github"));
+
+const projectVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: (index) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.52, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+function ProjectCard({ project, index }) {
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const imageSrc = project.image || projectImageFallbacks[project.imageCategory] || projectImageFallbacks.default;
+
+  const moveHandler = (event) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+    setTilt({ rotateX: y * -6, rotateY: x * 6 });
+    event.currentTarget.style.setProperty("--image-x", `${x * 10}px`);
+    event.currentTarget.style.setProperty("--image-y", `${y * 10}px`);
+  };
+
+  return (
+    <motion.article
+      className="surface project-card"
+      custom={index}
+      initial="hidden"
+      animate="show"
+      variants={projectVariants}
+      onMouseMove={moveHandler}
+      onMouseLeave={(event) => {
+        setTilt({ rotateX: 0, rotateY: 0 });
+        event.currentTarget.style.setProperty("--image-x", "0px");
+        event.currentTarget.style.setProperty("--image-y", "0px");
+      }}
+      style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformStyle: "preserve-3d" }}
+    >
+      <div className={`project-image ${imageLoaded ? "is-loaded" : "is-loading"}`}>
+        <img
+          loading="lazy"
+          decoding="async"
+          src={imageSrc}
+          alt={`${project.title} preview`}
+          onLoad={() => setImageLoaded(true)}
+          onError={(event) => {
+            if (event.currentTarget.src !== projectImageFallbacks.default) {
+              event.currentTarget.src = projectImageFallbacks.default;
+            }
+            setImageLoaded(true);
+          }}
+        />
+        <div className="project-image-overlay" aria-hidden="true" />
+        <div className="project-badge-row">
+          <span>{project.category}</span>
+          {project.demo && <span className="live-badge">Live</span>}
+        </div>
+      </div>
+      <div className="project-body">
+        <div className="project-title-row">
+          <h3>{project.title}</h3>
+          <div className="project-actions">
+            {project.demo && (
+              <a href={project.demo} target="_blank" rel="noreferrer" aria-label={`Open ${project.title} live demo`}>
+                <FiArrowUpRight aria-hidden="true" />
+                <span>Live</span>
+              </a>
+            )}
+            <a href={project.github} target="_blank" rel="noreferrer" aria-label={`Open ${project.title} on GitHub`}>
+              <FiGithub aria-hidden="true" />
+              <span>Code</span>
+            </a>
+          </div>
+        </div>
+        <p>{project.description}</p>
+        <div className="project-stats">
+          {project.stats.map((item, statIndex) => (
+            <span key={item}>
+              <strong>{String(statIndex + 1).padStart(2, "0")}</strong>
+              {item}
+            </span>
+          ))}
+        </div>
+        <div className="chip-list tech-chip-list">
+          {project.stack.map((item) => (
+            <span className="chip chip-quiet" key={item}>
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.article>
+  );
+}
 
 export function HeroSection() {
   return (
@@ -132,27 +228,7 @@ export function ProjectsSection({ compact = false }) {
         </Reveal>
         <div className="project-grid">
           {projects.map((project, index) => (
-            <Reveal className="surface project-card" delay={index * 70} key={project.title}>
-              <div className="project-image">
-                <img loading="lazy" src={project.image} alt={`${project.title} preview`} />
-              </div>
-              <div className="project-body">
-                <div className="project-title-row">
-                  <h3>{project.title}</h3>
-                  <a href={project.github} target="_blank" rel="noreferrer" aria-label={`Open ${project.title} on GitHub`}>
-                    <FiArrowUpRight aria-hidden="true" />
-                  </a>
-                </div>
-                <p>{project.description}</p>
-                <div className="chip-list">
-                  {project.stack.map((item) => (
-                    <span className="chip chip-quiet" key={item}>
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
+            <ProjectCard project={project} index={index} key={project.title} />
           ))}
         </div>
       </div>
@@ -160,7 +236,7 @@ export function ProjectsSection({ compact = false }) {
   );
 }
 
-function TimelineSection({ id, eyebrow, title, icon: Icon, entries }) {
+function TimelineSection({ id, eyebrow, title, entries }) {
   return (
     <section className="content-section" id={id}>
       <div className="site-shell split-section">
@@ -170,7 +246,9 @@ function TimelineSection({ id, eyebrow, title, icon: Icon, entries }) {
         <div className="timeline">
           {entries.map((entry, index) => (
             <Reveal className="surface timeline-item" delay={index * 80} key={`${entry.role || entry.degree}-${entry.place || entry.school}`}>
-              <Icon aria-hidden="true" />
+              <div className="timeline-marker" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </div>
               <div>
                 {entry.period && <span>{entry.period}</span>}
                 <h3>{entry.role || entry.degree}</h3>
@@ -191,7 +269,6 @@ export function ExperienceSection() {
       id="experience"
       eyebrow="Experience"
       title="What I am currently building and contributing to."
-      icon={FiBriefcase}
       entries={experience}
     />
   );
@@ -203,7 +280,6 @@ export function EducationSection() {
       id="education"
       eyebrow="Education"
       title="Education."
-      icon={FiBookOpen}
       entries={education}
     />
   );
@@ -261,7 +337,6 @@ export function AchievementsSection() {
         <div className="achievement-grid">
           {achievements.map((item, index) => (
             <Reveal className="surface statement-card" delay={index * 55} key={item.title}>
-              <FiAward aria-hidden="true" />
               <h3>{item.title}</h3>
               <p>{item.detail}</p>
             </Reveal>
@@ -290,7 +365,10 @@ export function OpenSourceSection() {
         <div className="source-list">
           {openSource.map((item, index) => (
             <Reveal className="surface source-item" delay={index * 70} key={item}>
-              <FiCode aria-hidden="true" />
+              <div className="repo-card-meta">
+                <span>repo</span>
+                <strong>{String(index + 1).padStart(2, "0")}</strong>
+              </div>
               <p>{item}</p>
             </Reveal>
           ))}
@@ -304,22 +382,141 @@ export function GithubSection() {
   return (
     <section className="content-section" id="github">
       <div className="site-shell">
-        <Reveal className="surface github-panel">
-          <SectionHeading
-            eyebrow="GitHub Stats"
-            title="GitHub activity."
-            copy="My recent public coding activity."
-          />
-          <Suspense fallback={<div className="loading-panel" role="status">Loading GitHub activity...</div>}>
-            <Github />
-          </Suspense>
-        </Reveal>
+        <div className="stats-grid">
+          <Reveal className="surface github-panel">
+            <SectionHeading
+              eyebrow="GitHub Heatmap"
+              title="Contribution activity."
+              copy="A live contribution heatmap connected to my public GitHub profile."
+            />
+            <Suspense fallback={<div className="loading-panel" role="status">Loading GitHub activity...</div>}>
+              <Github />
+            </Suspense>
+          </Reveal>
+          <Reveal className="surface github-panel github-stat-card" delay={90}>
+            <SectionHeading
+              eyebrow="GitHub Stats"
+              title="Repository signal."
+              copy="Live cards from GitHub Readme Stats."
+            />
+            <img
+              loading="lazy"
+              decoding="async"
+              src="https://github-readme-stats.vercel.app/api?username=23bsm038-Mahi&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0F172A&title_color=F8FAFC&text_color=94A3B8&icon_color=60A5FA"
+              alt="Mahi Raj GitHub stats"
+            />
+            <div className="commit-graph" aria-label="Recent development flow">
+              {["Commit", "Review", "Build", "Ship"].map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
 }
 
 export function ContactSection() {
+  const [formState, setFormState] = useState("idle");
+  const [formMessage, setFormMessage] = useState("");
+  const [visitorCount] = useState(() => {
+    const storedCount = Number(window.localStorage.getItem("portfolio-visits") || "0") + 1;
+    window.localStorage.setItem("portfolio-visits", String(storedCount));
+    return storedCount;
+  });
+
+  const buildMailtoLink = ({ name, email, message }) => {
+    const subject = `Portfolio contact from ${name}`;
+    const body = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      "",
+      message,
+    ].join("\n");
+
+    return `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  const sendWithFormSubmit = ({ name, email, message }) =>
+    fetch(`https://formsubmit.co/ajax/${profile.email}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+        _replyto: email,
+        _subject: `Portfolio contact from ${name}`,
+        _template: "table",
+        _captcha: "false",
+      }),
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error("FormSubmit request failed");
+      }
+
+      return response.json();
+    });
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const userName = String(formData.get("user_name") || "").trim();
+    const userEmail = String(formData.get("user_email") || "").trim();
+    const message = String(formData.get("message") || "").trim();
+    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
+    if (!userName || !userEmail || !message) {
+      setFormState("error");
+      setFormMessage("Please fill in every field before sending.");
+      return;
+    }
+
+    if (message.length < 12) {
+      setFormState("error");
+      setFormMessage("Please add a little more detail to your message.");
+      return;
+    }
+
+    setFormState("sending");
+    setFormMessage("Sending your message...");
+
+    if (!serviceId || !templateId || !publicKey) {
+      sendWithFormSubmit({ name: userName, email: userEmail, message })
+        .then(() => {
+          setFormState("sent");
+          setFormMessage("Message sent successfully. Please check your inbox once to confirm FormSubmit if this is the first message.");
+          form.reset();
+        })
+        .catch(() => {
+          setFormState("draft-opened");
+          setFormMessage("Online delivery could not complete, so a ready-to-send mail draft was opened instead.");
+          window.location.href = buildMailtoLink({ name: userName, email: userEmail, message });
+        });
+      return;
+    }
+
+    emailjs
+      .sendForm(serviceId, templateId, form, publicKey)
+      .then(() => {
+        setFormState("sent");
+        setFormMessage("Message sent successfully. Thank you for reaching out.");
+        form.reset();
+      })
+      .catch(() => {
+        setFormState("draft-opened");
+        setFormMessage("The email service did not respond, so a ready-to-send mail draft was opened instead.");
+        window.location.href = buildMailtoLink({ name: userName, email: userEmail, message });
+      });
+  };
+
   return (
     <section className="content-section" id="contact">
       <div className="site-shell">
@@ -330,11 +527,43 @@ export function ContactSection() {
             <p>
               You can reach me for full-stack opportunities, collaboration, project discussions, or open source work.
             </p>
+            <div className="visitor-counter">
+              <FiUserCheck aria-hidden="true" />
+              Portfolio visit #{visitorCount}
+            </div>
           </div>
+          <form className="contact-form" onSubmit={submitHandler}>
+            <input type="hidden" name="to_email" value={profile.email} />
+            <label>
+              Name
+              <input name="user_name" required placeholder="Your name" />
+            </label>
+            <label>
+              Email
+              <input name="user_email" type="email" required placeholder="your@email.com" />
+            </label>
+            <label>
+              Message
+              <textarea name="message" rows="4" required placeholder="Tell me about the role, project, or collaboration." />
+            </label>
+            <button className="button button-primary" type="submit" disabled={formState === "sending"}>
+              <FiSend aria-hidden="true" />
+              {formState === "sending" ? "Sending..." : "Send message"}
+            </button>
+            {formMessage && (
+              <p className={`form-note form-note-${formState}`} role={formState === "error" ? "alert" : "status"}>
+                {formMessage}
+              </p>
+            )}
+          </form>
           <div className="contact-actions">
             <a className="button button-primary" href={profile.socials[1].href} target="_blank" rel="noreferrer">
               <FiMessageCircle aria-hidden="true" />
               Connect on LinkedIn
+            </a>
+            <a className="button button-secondary" href={`mailto:${profile.email}`}>
+              <FiSend aria-hidden="true" />
+              Email directly
             </a>
             <a className="button button-secondary" href={profile.resume} download>
               <FiDownload aria-hidden="true" />
@@ -349,6 +578,59 @@ export function ContactSection() {
             </div>
           </div>
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+export function CodingProfilesSection() {
+  return (
+    <section className="content-section" id="coding-profiles">
+      <div className="site-shell">
+        <Reveal>
+          <SectionHeading
+            eyebrow="Coding Profiles"
+            title="Profiles recruiters can inspect."
+            copy="Public links for code, professional activity, and problem-solving presence."
+          />
+        </Reveal>
+        <div className="profile-grid">
+          {codingProfiles.map((item, index) => (
+            <Reveal className="surface profile-card" delay={index * 70} key={item.platform}>
+              <h3>{item.platform}</h3>
+              <p>{item.metric}</p>
+              <a className="text-link" href={item.href} target="_blank" rel="noreferrer">
+                {item.handle}
+                <FiArrowUpRight aria-hidden="true" />
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function TestimonialsSection() {
+  return (
+    <section className="content-section" id="testimonials">
+      <div className="site-shell">
+        <Reveal>
+          <SectionHeading
+            eyebrow="Testimonials"
+            title="Professional positioning."
+            copy="Short recruiter-facing proof points that explain how to read the portfolio."
+          />
+        </Reveal>
+        <div className="testimonial-grid">
+          {testimonials.map((item, index) => (
+            <Reveal className="surface testimonial-card" delay={index * 80} key={item.name}>
+              <p>"{item.quote}"</p>
+              <strong>{item.name}</strong>
+              <span>{item.role}</span>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

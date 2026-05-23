@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 function Reveal({ children, className = "", delay = 0 }) {
   const nodeRef = useRef(null);
@@ -31,13 +32,16 @@ function Reveal({ children, className = "", delay = 0 }) {
   }, []);
 
   return (
-    <div
+    <motion.div
       ref={nodeRef}
       className={`reveal ${visible ? "is-visible" : ""} ${className}`.trim()}
+      initial={{ opacity: 0, y: 22 }}
+      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
+      transition={{ duration: 0.52, delay: delay / 1000, ease: [0.22, 1, 0.36, 1] }}
       style={{ "--reveal-delay": `${delay}ms` }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }
 

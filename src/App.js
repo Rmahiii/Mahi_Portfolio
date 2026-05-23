@@ -1,4 +1,5 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -19,6 +20,8 @@ const Resume = lazy(() => import("./components/Resume/ResumeNew"));
 const Blogs = lazy(() => import("./components/Blogs/Blogs"));
 
 function App() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 });
   const [load, updateLoad] = useState(true);
   const [theme, setTheme] = useState(() => {
     const savedTheme = window.localStorage.getItem("portfolio-theme");
@@ -49,6 +52,7 @@ function App() {
     <Router>
       <Preloader load={load} />
       <div className="App" id={load ? "no-scroll" : "scroll"}>
+        <motion.div className="scroll-progress" style={{ scaleX }} />
         <Navbar
           theme={theme}
           onThemeToggle={() => setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"))}
