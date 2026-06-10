@@ -5,7 +5,7 @@ function Github() {
   return (
     <div className="github-calendar-wrap">
       <GitHubCalendar
-        username="23bsm038-Mahi"
+        username="Rmahiii"
         blockSize={13}
         blockMargin={4}
         fontSize={14}

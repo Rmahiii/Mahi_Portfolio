@@ -38,7 +38,7 @@ export const profile = {
   socials: [
     {
       label: "GitHub",
-      href: "https://github.com/23bsm038-Mahi",
+      href: "https://github.com/Rmahiii",
     },
     {
       label: "LinkedIn",
@@ -88,7 +88,7 @@ export const projects = [
       "Resume analysis workflow that scores uploaded resumes and returns structured feedback for ATS readiness.",
     stack: ["React", "JavaScript", "AI Workflow", "Vercel"],
     stats: ["ATS scoring", "Resume insights", "Live demo"],
-    github: "https://github.com/23bsm038-Mahi/AI-Resume-Analyzer",
+    github: "https://github.com/Rmahiii/AI-Resume-Analyzer",
     demo: "https://ai-resume-analyzer-web-six.vercel.app/",
   },
   {
@@ -101,7 +101,7 @@ export const projects = [
       "Browser-based code editor for HTML, CSS, and JavaScript with a live preview workflow.",
     stack: ["React", "JavaScript", "Editor UX", "Live Preview"],
     stats: ["Live preview", "Multi-pane UI", "Frontend tooling"],
-    github: "https://github.com/23bsm038-Mahi/vs-code-clone",
+    github: "https://github.com/Rmahiii/vs-code-clone",
   },
   {
     title: "E-Commerce Website",
@@ -113,7 +113,7 @@ export const projects = [
       "Full-stack commerce flow with product browsing, cart behavior, authentication, and order journey screens.",
     stack: ["React", "Node.js", "Express", "MongoDB"],
     stats: ["Cart flow", "Auth flow", "Order journey"],
-    github: "https://github.com/23bsm038-Mahi/E-commerce-",
+    github: "https://github.com/Rmahiii/E-commerce-",
   },
   {
     title: "Artwork Portfolio",
@@ -124,7 +124,7 @@ export const projects = [
       "Responsive gallery experience for browsing and presenting digital artwork collections.",
     stack: ["React", "CSS", "Responsive UI"],
     stats: ["Gallery UX", "Mobile layout", "Content model"],
-    github: "https://github.com/23bsm038-Mahi/Artworks-App",
+    github: "https://github.com/Rmahiii/Artworks-App",
   },
   {
     title: "Yoom",
@@ -135,7 +135,7 @@ export const projects = [
       "Creative platform interface built with reusable React UI and structured content sections.",
     stack: ["React", "CSS", "Content UX", "Performance"],
     stats: ["Reusable UI", "Responsive nav", "Content UX"],
-    github: "https://github.com/23bsm038-Mahi/Yoom",
+    github: "https://github.com/Rmahiii/Yoom",
     demo: "https://yoom-ashy-mu.vercel.app/",
   },
 ];
@@ -255,8 +255,8 @@ export const openSource = [
 export const codingProfiles = [
   {
     platform: "GitHub",
-    handle: "23bsm038-Mahi",
-    href: "https://github.com/23bsm038-Mahi",
+    handle: "Rmahiii",
+    href: "https://github.com/Rmahiii",
     metric: "Public repositories and open source work",
   },
   {

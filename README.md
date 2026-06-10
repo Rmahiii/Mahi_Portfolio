@@ -3,7 +3,7 @@
 </h2>
 
 <p align="center">
-  <a href="https://github.com/23bsm038-Mahi" target="_blank">GitHub</a> •
+  <a href="https://github.com/Rmahiii" target="_blank">GitHub</a> •
   <a href="https://www.linkedin.com/in/mahi-raj-07aa62354" target="_blank">LinkedIn</a>
 </p>
 
@@ -48,7 +48,7 @@ To run this project locally:
 ### 1️1. Clone the repository
 
 ```bash
-git clone https://github.com/23bsm038-Mahi/Portfolio.git
+git clone https://github.com/Rmahiii/Portfolio.git
 
 2️. Navigate to project directory
 cd Portfolio
@@ -78,7 +78,7 @@ src/components/
 
 Contact Me
 
-GitHub: https://github.com/23bsm038-Mahi
+GitHub: https://github.com/Rmahiii
 
 LinkedIn: https://www.linkedin.com/in/mahi-raj-07aa62354
 

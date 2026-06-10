@@ -433,7 +433,7 @@ export function GithubSection() {
             <img
               loading="lazy"
               decoding="async"
-              src="https://github-readme-stats.vercel.app/api?username=23bsm038-Mahi&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0F172A&title_color=F8FAFC&text_color=94A3B8&icon_color=60A5FA"
+              src="https://github-readme-stats.vercel.app/api?username=Rmahiii&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0F172A&title_color=F8FAFC&text_color=94A3B8&icon_color=60A5FA"
               alt="Mahi Raj GitHub stats"
             />
             <div className="commit-graph" aria-label="Recent development flow">
