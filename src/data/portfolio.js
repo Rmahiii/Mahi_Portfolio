@@ -1,4 +1,5 @@
 import c4gtCertificate from "../Assets/Certificates/c4gt-certificate.pdf";
+import deloitteCertificate from "../Assets/Certificates/deloitte-certificate.pdf";
 import githubCertificate from "../Assets/Certificates/github-certificate.pdf";
 import gssocAcceptance from "../Assets/Certificates/gssoc.jpeg";
 import headAndShouldersCertificate from "../Assets/Certificates/head-and-shoulders-certificate.png";
@@ -211,6 +212,14 @@ export const credentials = [
     asset: headAndShouldersCertificate,
     preview: headAndShouldersCertificate,
     type: "image",
+  },
+  {
+    title: "Deloitte Certificate",
+    issuer: "Deloitte",
+    label: "Certificate",
+    detail: "PDF credential available for review.",
+    asset: deloitteCertificate,
+    type: "pdf",
   },
   {
     title: "C4GT Certificate",
