@@ -276,7 +276,7 @@ export const codingProfiles = [
   },
   {
     platform: "LeetCode",
-    handle: "2Eo3nZmgad",
+    handle: "rmahi_14",
     href: "https://leetcode.com/u/2Eo3nZmgad/",
     metric: "Problem solving and DSA practice profile",
   },
